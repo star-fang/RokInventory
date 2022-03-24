@@ -1,4 +1,4 @@
-import { getFirestore, collection, query, where, onSnapshot, doc, runTransaction, getDoc } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js";
+import {getFirestore, collection, query, where, onSnapshot, doc, runTransaction, getDoc} from "https://www.gstatic.com/firebasejs/9.6.9/firebase-firestore.js";
 
 export default class FSDO { // Firebasestore Data Object
 

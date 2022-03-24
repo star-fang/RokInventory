@@ -6,34 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Welcome to Firebase Hosting</title>
   <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
 </head>
 
 <body>
   <div class="container">
-    <div class="row clearfix">
-      <div class="col-md-12 column">
-        <table class="table table-bordered table-hover" id="table_db">
-          <thead>
-            <tr>
-              <th class="text-center">
-                #
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr id='addr0'></tr>
-          </tbody>
-        </table>
+    <a id="add_row" class="btn btn-default pull-left">Add Row</a>
+    <a id='add_column' class="btn btn-default pull-left">Add Column</a>
+    <a id='Get_data' class="pull-right btn btn-default">Get Data</a>
+    <div class="tab-content w-100 p-3">
+      <div class="tab-pane active w-100" id="tab-table1">
       </div>
     </div>
-    <a id="add_row" class="btn btn-default pull-left">Add Row</a><a id='delete_row'
-      class="pull-right btn btn-default">Delete Row</a>
-    <a id='Get_row_data' class="pull-right btn btn-default">Get Row Data</a>
+    <ul class="nav nav-tabs w-100 p-3" role="tablist">
+      <li class="active">
+        <a href="#tab-table1" data-toggle="tab">Table 1</a>
+      </li>
+      <a id="add_table" class="btn btn-default pull-left">+</a>
+    </ul>
+  </div>
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="module" src="/scripts/main.js?ver=1.0.0"></script>
-    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+  <script type="module" src="/scripts/main.js?ver=1.0.1"></script>
+  <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 </body>
 
 </html>

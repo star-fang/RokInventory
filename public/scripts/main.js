@@ -1,6 +1,6 @@
-import {launchListView} from "./dbListView.js"
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js"
+import DT from "./data__table.js"
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-analytics.js";
 
 $(window).on('load', () => {
   const firebaseConfig = {
@@ -17,5 +17,10 @@ $(window).on('load', () => {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-  launchListView();
-} );
+
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+  });
+  const dt = new DT('tab-table1', 'dt1');
+  dt.initDT();
+});

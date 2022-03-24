@@ -1,0 +1,62 @@
+import FSDO from "./fsdo.js"
+
+export function initDT(table_id, cols, data) {
+    const dt = $(`#${table_id}`).dataTable({
+            "bJQueryUI": true,
+            "bDeferRender": true,
+            "bInfo" : false,
+            "bSort" : false,
+            "bDestroy" : true,
+            "bFilter" : false,
+            "bPagination" : false,
+            "aaData": data,
+            "aoColumns": cols,
+            "order": [[ 1, 'asc' ]]
+    });
+    
+    /*
+    dt.on( 'order.dt search.dt', () => {
+        dt.column(0, {search:'applied', order:'applied'}).nodes().each( (cell, i) => {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+    */
+    return dt;
+}
+
+export function linkFirestoreData() {
+    const fsdo = new FSDO()
+    , dt = $('#table_linked').DataTable()
+    , columnKeySet = new Set();
+    fsdo.linkCollection('commander', (change) => {
+        
+        if(change.doc !== undefined && change.doc !== null) {
+            const docId = change.doc.id;
+
+            if(change.type === 'removed') {
+                dt.row(`#row_${docId}`).delete();
+            } else { // change.type = added | modified
+                const docData = change.doc.data();
+                let columnAddedCount = 0;
+                //dtColumnTitles = dt.columns().header();
+                Object.keys(docData).forEach( key => {
+                    if(!columnKeySet.has(key)) {
+                        columnKeySet.add(key);
+                        columnAddedCount++;
+                    }
+                });
+                if( columnAddedCount > 0 ) {
+                    //initDT('table_linked',[{title:'id'},{title:''}])
+                }
+                let rowData = new Array();
+                for(let i = 0, columnKeyArr = [...columnKeySet], keylen = columnKeyArr.length; i < keylen; i++) {
+                    const cellData = docData[columnKeyArr[i]];
+                    rowData.push( typeof cellData === 'undefined' ? "": cellData);
+                }
+                console.log(rowData);
+                dt.row.add(rowData).draw();
+                //dt.row(`#row_${docId}`).data( rowData ).draw( false );
+                
+            }
+        }
+    } );
